@@ -47,3 +47,11 @@ python3 -m hexss --help
 ```bash
 pip3 uninstall hexss
 ```
+
+## Simple output example
+```bash
+python3 -m hexss hexss/files/bytes_representation
+```
+
+![Screenshot with output for above command.](docs/example.png)
+
