@@ -57,6 +57,13 @@ def parse_args() -> Namespace:
         dest='hide_header',
     )
 
+    parser.add_argument(
+        '-O',
+        action='store_false',
+        help='Do not print the offset.',
+        dest='is_offset',
+    )
+
     section = parser.add_mutually_exclusive_group()
     section.add_argument('-T', '--tail', action='store_true')
     section.add_argument('-H', '--head', action='store_true')

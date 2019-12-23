@@ -23,6 +23,7 @@ class Formatter(object):
 
 		self._fill_empty = args.fill_empty
 		self._unicode = args.unicode
+		self._is_offset = args.is_offset
 		self.header = not args.hide_header
 
 		self.head = args.head
@@ -43,9 +44,10 @@ class Formatter(object):
 	def get_header_line(self) -> str:
 		offset_label = True
 		_line = ''
-		if offset_label:
-			_line += 'Offset'
-		_line = _line.ljust(10, ' ') + ' '*5
+		if self._is_offset:
+			if offset_label:
+				_line += 'Offset'
+			_line = _line.ljust(10, ' ') + ' '*5
 
 		numbers = ''.join(
 			str(num).rjust(2, ' ') + ' '
@@ -66,6 +68,8 @@ class Formatter(object):
 		return _line
 
 	def __format_offset(self, offset: int) -> str:
+		if not self._is_offset:
+			return ''
 		formatted = '0x{:08X}'.format(offset)
 		if not self.coloring or offset % self.__accent_offset_every:
 			return formatted
@@ -114,7 +118,7 @@ class Formatter(object):
 		# TODO: Is there a faster way to do this?
 		self.__buffer = [
 			self.__format_offset(self.__offset),
-			self.__get_separator(2, 2),
+			self.__get_separator(2, 2) if self._is_offset else '',
 			''.join(
 				byte + ' '
 				if type(byte) == str
