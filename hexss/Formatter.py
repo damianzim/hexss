@@ -23,6 +23,7 @@ class Formatter(object):
 
 		self._fill_empty = args.fill_empty
 		self._unicode = args.unicode
+		self.header = not args.hide_header
 
 		self.head = args.head
 		self.tail = args.tail
@@ -81,7 +82,7 @@ class Formatter(object):
 				Colors.GREY
 				if self.__offset % self.__accent_offset_every
 				else Colors.BRIGHT_BLUE,
-				Background, 
+				Background,
 				_separator,
 			)
 
@@ -96,7 +97,7 @@ class Formatter(object):
 
 		if not self.coloring:
 			return data
-		
+
 		return color(_color, space, data)
 
 	def get_formatted_line(self) -> str:

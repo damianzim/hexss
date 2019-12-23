@@ -24,7 +24,7 @@ def parse_args() -> Namespace:
         type=str,
         help='Path to the file to be scanned.',
     )
-    
+
     parser.add_argument(
         '-n', '--lines',
         action='store',
@@ -48,6 +48,13 @@ def parse_args() -> Namespace:
         action='store_false',
         help='Disable bytes representation in Unicode.',
         dest='unicode',
+    )
+
+    parser.add_argument(
+        '-D',
+        action='store_true',
+        help='Hide header.',
+        dest='hide_header',
     )
 
     section = parser.add_mutually_exclusive_group()
@@ -76,7 +83,7 @@ def read_stream(path: str, formatter: Formatter) -> None:
     except OSError as err:
         print(err)
         raise
-    
+
     try:
         with open(path, 'rb') as f:
             offset = 0
@@ -91,7 +98,7 @@ def read_stream(path: str, formatter: Formatter) -> None:
 
                 output_resolution = formatter.line_len * formatter.lines
                 use_resolution = True
-            
+
             if formatter.tail and file_size > output_resolution:
                 tail_complementing = (
                     formatter.line_len - file_size % formatter.line_len
@@ -100,7 +107,9 @@ def read_stream(path: str, formatter: Formatter) -> None:
                 offset = file_size + tail_complementing - output_resolution
                 f.seek(offset)
 
-            print(formatter.get_header_line())
+            if formatter.header:
+                print(formatter.get_header_line())
+
             while True:
                 # TODO: Is it good to read the stream every few bytes?
                 buf = f.read(
@@ -120,7 +129,7 @@ def read_stream(path: str, formatter: Formatter) -> None:
                     file_size if formatter.tail else output_resolution
                 ):
                     break
-                        
+
                 assert 0 <= offset < STREAM_LIMIT, \
                     'The input stream is too large.'
 
