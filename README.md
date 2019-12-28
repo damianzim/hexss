@@ -7,7 +7,9 @@ At the moment the input should be less than 4GiB.
 
 ## Features
 ```
-usage: . [-h] [-n LINES] [-l {4,8,16,32,64,128}] [-d] [-T | -H] [-f] [-p] file
+usage: __main__.py [-h] [-n LINES] [-l {4,8,16,32,64,128}] [-d] [-D] [-O]
+                   [-T | -H] [-f] [-p]
+                   file
 
 Hex Stream Scan
 
@@ -21,10 +23,12 @@ optional arguments:
   -l {4,8,16,32,64,128}, --len {4,8,16,32,64,128}
                         Number of bytes to print per line.
   -d                    Disable bytes representation in Unicode.
+  -D                    Hide header.
+  -O                    Do not print the offset.
   -T, --tail
   -H, --head
   -f, --fill-empty      Fill the empty offset with zeros.
-  -p                    Do not color the output..
+  -p                    Do not color the output.
 ```
 
 ## Installation with `user` privileges
