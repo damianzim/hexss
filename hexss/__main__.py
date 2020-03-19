@@ -43,7 +43,16 @@ def parse_args() -> Namespace:
         dest='line_len',
     )
 
-    parser.add_argument(
+    unicode_representation = parser.add_mutually_exclusive_group()
+
+    unicode_representation.add_argument(
+        '-c', '--compact',
+        action='store_true',
+        help='Print compact unicode representation.',
+        dest='compact_unicode',
+    )
+
+    unicode_representation.add_argument(
         '-d',
         action='store_false',
         help='Disable bytes representation in Unicode.',

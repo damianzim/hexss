@@ -7,7 +7,7 @@ At the moment the input should be less than 4GiB.
 
 ## Features
 ```
-usage: __main__.py [-h] [-n LINES] [-l {4,8,16,32,64,128}] [-d] [-D] [-O]
+usage: __main__.py [-h] [-n LINES] [-l {4,8,16,32,64,128}] [-c | -d] [-D] [-O]
                    [-T | -H] [-f] [-p]
                    file
 
@@ -22,6 +22,7 @@ optional arguments:
                         The number of lines.
   -l {4,8,16,32,64,128}, --len {4,8,16,32,64,128}
                         Number of bytes to print per line.
+  -c, --compact         Print compact unicode representation.
   -d                    Disable bytes representation in Unicode.
   -D                    Hide header.
   -O                    Do not print the offset.

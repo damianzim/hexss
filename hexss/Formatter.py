@@ -22,6 +22,7 @@ class Formatter(object):
 		self.coloring = args.coloring
 
 		self._fill_empty = args.fill_empty
+		self._compact = args.compact_unicode
 		self._unicode = args.unicode
 		self._is_offset = args.is_offset
 		self.header = not args.hide_header
@@ -138,10 +139,10 @@ class Formatter(object):
 				''.join(
 					byte
 					if type(byte) == str
-					else chr(byte) + ' '
+					else chr(byte) + ('' if self._compact else ' ')
 					if chr(byte).isprintable()
 					else self.__conditional_coloring(
-						chr(self.MIDDLE_DOT) + ' ',
+						chr(self.MIDDLE_DOT) + ('' if self._compact else ' '),
 						Colors.GREY if not byte else Colors.BRIGHT_RED,
 					)
 					for byte in self.__data
