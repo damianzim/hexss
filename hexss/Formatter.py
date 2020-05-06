@@ -109,8 +109,13 @@ class Formatter(object):
 		n_data = len(self.__data)
 
 		# Complement the line with zeros or spaces.
-		self.__data += [] if n_data == self.line_len \
-			else [0 if self._fill_empty else '  '] * (self.line_len - n_data)
+		self.__data += [] if n_data == self.line_len else [
+			0
+			if self._fill_empty
+			else ' '
+			if self._compact
+			else '  '
+		] * (self.line_len - n_data)
 
 		# Check if the line is already formatted.
 		if self.__buffer:
@@ -121,7 +126,7 @@ class Formatter(object):
 			self.__format_offset(self.__offset),
 			self.__get_separator(2, 2) if self._is_offset else '',
 			''.join(
-				byte + ' '
+				byte + ' ' + (' ' if self._compact else '')
 				if type(byte) == str
 				else '{:02X} '.format(byte)
 				if chr(byte).isprintable()

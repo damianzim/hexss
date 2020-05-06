@@ -8,7 +8,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
     name='hexss',
-    version='0.2.0',
+    version='0.2.1',
     author='Damian Zimon',
     description='Print file in hex.',
     url='https://github.com/damianzim/hexss',
